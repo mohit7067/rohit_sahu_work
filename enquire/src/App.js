@@ -1,34 +1,38 @@
-import logo from "./logo.svg";
+import { Box, Button, Modal } from "@mui/material";
 import "./App.css";
-import { useEffect, useState } from "react";
-import Enquire from "./Enquire";
-import Callus from "./Callus";
-import Findus from "./Findus";
+import ModalCom from "./ModalCom";
+import { useState } from "react";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "98%",
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  // p: 4,
+  height: "98%",
+  overflowY: "scroll",
+  m: "auto",
+};
 
 function App() {
-  const [component, setComponent] = useState("enquire");
-
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
-    <div className="App">
-      <h1>Logo</h1>
-      <div className="main_container">
-        <div className="buttons_container">
-          <button onClick={() => setComponent("callus")}>CALL US</button>
-          <button onClick={() => setComponent("enquire")}>
-            ENQUIRE ONLINE
-          </button>
-          <button onClick={() => setComponent("findus")}>FIND US</button>
-        </div>
-        <div className="content_container">
-          {component === "callus" ? (
-            <Callus  setComponent={setComponent}/>
-          ) : component === "findus" ? (
-            <Findus />
-          ) : (
-            <Enquire />
-          )}
-        </div>
-      </div>
+    <div>
+      <Button onClick={handleOpen}>Open modal</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description">
+        <Box sx={style}>
+          <ModalCom handleClose={handleClose} />
+        </Box>
+      </Modal>
     </div>
   );
 }
